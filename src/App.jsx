@@ -1,31 +1,23 @@
-import { useState } from 'react';
-import Perfil from './components/Perfil';
-import Formulario from './components/formulario';
-import ReposList from './components/Reposlist';
+import React, { useState } from 'react';
+import IMCForm from './components/IMCForm.jsx';
+import IMCResult from './components/IMCResult.jsx';
+import './App.css';
 
 function App() {
-  const [formularioEstaVisivel, setFormularioEstaVisivel] = useState (true);
-  const [nomeUsuario, setNomeUsuario] = useState('')
+  const [imc, setImc] = useState(null);
 
-  return(
-    <>
-      <input type="text" onBlur={(e) => setNomeUsuario (e.target.value)}/>
-    {nomeUsuario.length > 4 &&(
+  const handleCalculate = (calculatedImc) => {
+    setImc(calculatedImc);
+  };
 
-      <>
-        <Perfil nomeUsuario={nomeUsuario} />
-        <ReposList nomeUsuario={nomeUsuario} />
-      </>
-
-    )}
-
-      {/* {formularioEstaVisivel &&(
-        <Formulario/>
-      )}
-
-      <button onClick={() => setFormularioEstaVisivel(!formularioEstaVisivel)} type='button'>Toggle form</button> */}
-    </>
-  )
+  return (
+    <div className="App">
+      <h1>Calculadora de IMC</h1>
+      <IMCForm onCalculate={handleCalculate} />
+      {imc !== null && <IMCResult imc={imc} />}
+    </div>
+  );
 }
 
-export default App
+export default App;
+
